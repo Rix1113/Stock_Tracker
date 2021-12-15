@@ -50,6 +50,6 @@ public class TradeController {
     public String addTrade(Trade trade) {
         repository.save(trade);
 
-        return "trades/all-trades";
+        return "redirect:/trade/all-trades";
     }
 }
