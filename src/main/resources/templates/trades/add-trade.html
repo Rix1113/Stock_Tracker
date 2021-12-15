@@ -48,8 +48,15 @@
 
         <!-- Add hidden form field to handle update -->
         <input type="hidden" th:field="*{id}"/>
-
         <input type="text" th:field="*{name}" placeholder="Ticker" class="form-control mb-4 col-4"/>
+
+        <!-- Add trade details -->
+            <!-- Add hidden form field to handle update -->
+            <input type="hidden" th:field="*{id}" th:object="${trade_details}" method="post"/>
+            <input type="number" placeholder="Open price" th:field="*{openPrice}" class="form-control mb-4 col-4" th:object="${trade_details}" method="post"/>
+            <input type="number" th:field="*{closePrice}" placeholder="Close price" class="form-control mb-4 col-4" th:object="${trade_details}" method="post"/>
+            <input type="number" th:field="*{commission}" placeholder="Commission" class="form-control mb-4 col-4" th:object="${trade_details}" method="post"/>
+            <input type="number" th:field="*{profit}" placeholder="Profit" class="form-control mb-4 col-4" th:object="${trade_details}" method="post"/>
 
         <button type="submit" class="btn btn-info col-2">Add</button>
     </form>

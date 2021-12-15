@@ -24,7 +24,7 @@ public class TradeService {
         this.converter = converter;
     }
 
-    public List<TradeSummary> readAllStocks() {
+    public List<TradeSummary> readAllTrades() {
         log.info("reading all stocks");
 
         var result = repository.findAll()
@@ -38,7 +38,7 @@ public class TradeService {
         return result;
     }
 
-    public Optional<TradeSummary> readStockById(Long id) {
+    public Optional<TradeSummary> readTradeById(Long id) {
         var result = repository.findById(id);
         log.info("item with id: [{}] exists? - [{}]", id, result.isPresent());
         log.debug("received trade: [{}]", result.orElse(null));

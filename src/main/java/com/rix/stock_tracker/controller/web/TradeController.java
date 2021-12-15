@@ -2,6 +2,7 @@ package com.rix.stock_tracker.controller.web;
 
 import com.rix.stock_tracker.Service.TradeService;
 import com.rix.stock_tracker.entity.Trade;
+import com.rix.stock_tracker.entity.TradeDetails;
 import com.rix.stock_tracker.repository.TradeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class TradeController {
     @GetMapping("/all-trades")
     public String allTrades(Model model) {
 
-        model.addAttribute(TRADE_KEY, tradeService.readAllStocks());
+        model.addAttribute(TRADE_KEY, tradeService.readAllTrades());
 
         return "trades/all-trades";
     }
@@ -43,11 +44,13 @@ public class TradeController {
     @GetMapping("/add-trade")
     public String showAddTradeForm(Model model) {
         model.addAttribute("trade", new Trade());
+        model.addAttribute("trade_details", new TradeDetails());
         return "trades/add-trade";
     }
 
     @PostMapping("/process_add-trade")
-    public String addTrade(Trade trade) {
+    public String addTrade(Trade trade, TradeDetails tradeDetails) {
+        trade.setTradeDetails(tradeDetails);
         repository.save(trade);
 
         return "redirect:/trade/all-trades";
