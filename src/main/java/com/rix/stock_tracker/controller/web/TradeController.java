@@ -40,7 +40,7 @@ public class TradeController {
         return "redirect:/trade/all-trades";
     }
 
-    @PostMapping("/add-trade")
+    @GetMapping("/add-trade")
     public String showAddTradeForm(Model model) {
         model.addAttribute("trade", new Trade());
         return "trades/add-trade";

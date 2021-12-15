@@ -42,24 +42,23 @@
     </div>
 </nav>
 <div class="container">
-    <table class="table table-dark table-sm">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Creation timestamp</th>
-            <th scope="col">Update timestamp</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="trade: ${trades}">
-            <td style="font-family: Arial" th:text="${trade.name()}">Shopping</td>
-            <td th:text="${trade.created()}">2021-12-10</td>
-            <td th:text="${trade.updated()}">2021-12-13</td>
-            <td><a th:href="@{'/trade/delete-trade/' + ${trade.id()}}" href="#" class="btn btn-danger">Delete</a></td>
-        </tr>
-        </tbody>
-    </table>
+    <h3>Movie Directory</h3>
+    <hr>
+
+    <p class="h4 mb-4">Add Trade</p>
+
+    <form action="#" th:action="@{/trade/process_add-trade}" th:object="${trade}" method="post">
+
+        <!-- Add hidden form field to handle update -->
+        <input type="hidden" th:field="*{id}"/>
+
+        <input type="text" th:field="*{name}" placeholder="Movie name" class="form-control mb-4 col-4"/>
+
+        <button type="submit" class="btn btn-info col-2">Add</button>
+    </form>
+    <hr>
+    <a th:href="@{/trade/all-trade}" type="button" class="btn btn-outline-secondary">Back to Trades-list</a>
+
 </div>
 </body>
-</h
+</html>
