@@ -3,7 +3,9 @@ package com.rix.stock_tracker.Service;
 import com.rix.stock_tracker.converter.TradeConverter;
 import com.rix.stock_tracker.dto.TradeSummary;
 import com.rix.stock_tracker.entity.Trade;
+import com.rix.stock_tracker.entity.TradeDetails;
 import com.rix.stock_tracker.exceptions.DeletingNonExistentObject;
+import com.rix.stock_tracker.repository.TradeDetailRepository;
 import com.rix.stock_tracker.repository.TradeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,12 @@ import java.util.Optional;
 public class TradeService {
 
     private final TradeRepository repository;
+    private final TradeDetailRepository detailRepository;
     private final TradeConverter converter;
 
-    public TradeService(final TradeRepository repository, final TradeConverter converter) {
+    public TradeService(final TradeRepository repository, final TradeDetailRepository detailRepository, final TradeConverter converter) {
         this.repository = repository;
+        this.detailRepository = detailRepository;
         this.converter = converter;
     }
 
@@ -43,6 +47,12 @@ public class TradeService {
         log.info("item with id: [{}] exists? - [{}]", id, result.isPresent());
         log.debug("received trade: [{}]", result.orElse(null));
         return result.map(trade -> converter.fromEntityToDto(trade));
+    }
+
+    public TradeDetails readDetailsById(Long id) {
+        Optional<Trade> trade = repository.findById(id);
+        TradeDetails details = trade.get().getTradeDetails();
+        return details;
     }
 
     @Transactional

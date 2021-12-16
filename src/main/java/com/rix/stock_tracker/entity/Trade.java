@@ -30,8 +30,8 @@ public class Trade {
     @Column(name = "update_time")
     private LocalDateTime updateTimestamp;
 
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "trade_details_id")
     private TradeDetails tradeDetails;
 
     @PrePersist
