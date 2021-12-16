@@ -49,21 +49,19 @@
     <table class="table table-dark table-sm">
         <thead>
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Creation timestamp</th>
-            <th scope="col">Update timestamp</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col">Open price</th>
+            <th scope="col">Close price</th>
+            <th scope="col">Commission</th>
+            <th scope="col">Profit</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="trade: ${trades}">
-            <td style="font-family: Arial" th:text="${trade.name()}">Shopping</td>
-            <td th:text="${trade.created()}">2021-12-10</td>
-            <td th:text="${trade.updated()}">2021-12-13</td>
-            <td><a th:href="@{'/trade/delete-trade/' + ${trade.id()}}" href="#" class="btn btn-danger">Delete</a></td>
-            <td><a th:href="@{'/trade/show-trade-details/' +${trade.id()}}" href="#" class="btn btn-primary">Details</a> </td>
-        </tr>
+        <tr th:object="${tradeDetails}">
+            <td style="font-family: Arial" th:text="${tradeDetails.openPrice}">Shopping</td>
+            <td th:text="${tradeDetails.closePrice}">2021-12-10</td>
+            <td th:text="${tradeDetails.commission}">2021-12-13</td>
+            <td th:text="${tradeDetails.profit}">2021-12-13</td>
+         </tr>
         </tbody>
     </table>
 </div>
