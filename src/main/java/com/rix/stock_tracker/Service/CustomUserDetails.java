@@ -4,8 +4,10 @@ package com.rix.stock_tracker.Service;
 import com.rix.stock_tracker.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+
 
 public class CustomUserDetails implements UserDetails {
 

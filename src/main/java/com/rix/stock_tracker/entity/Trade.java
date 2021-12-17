@@ -34,6 +34,15 @@ public class Trade {
     @OneToOne(cascade = CascadeType.ALL)
     private TradeDetails tradeDetails;
 
+
+    @ManyToOne(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH,
+            CascadeType.REFRESH})
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @PrePersist
     public void beforeSave() {
         creationTimestamp = LocalDateTime.now();
