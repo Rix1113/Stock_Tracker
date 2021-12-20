@@ -62,6 +62,7 @@
             <th scope="col">Close price</th>
             <th scope="col">Commission</th>
             <th scope="col">Profit</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -70,6 +71,10 @@
             <td th:text="${tradeDetails.closePrice}">2021-12-10</td>
             <td th:text="${tradeDetails.commission}">2021-12-13</td>
             <td th:text="${tradeDetails.profit}">2021-12-13</td>
+            <td>
+                <a th:href="@{/trade/showFormForUpdate(id=${tradeDetails.id})}"
+                   class="btn btn-info btm-sm">Update</a>
+            </td>
          </tr>
         </tbody>
     </table>
