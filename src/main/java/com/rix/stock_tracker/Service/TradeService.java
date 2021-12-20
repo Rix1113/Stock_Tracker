@@ -49,6 +49,16 @@ public class TradeService {
         return result.map(trade -> converter.fromEntityToDto(trade));
     }
 
+    public Trade getTradeById(Long id) {
+        Optional<Trade> trade = repository.findById(id);
+        Trade trade1 = new Trade();
+        trade1.setId(trade.get().getId());
+        trade1.setName(trade.get().getName());
+        trade1.setCreationTimestamp(trade.get().getCreationTimestamp());
+        trade1.setUpdateTimestamp(trade.get().getUpdateTimestamp());
+        return trade1;
+    }
+
     public TradeDetails readDetailsById(Long id) {
         Optional<Trade> trade = repository.findById(id);
         TradeDetails details = trade.get().getTradeDetails();

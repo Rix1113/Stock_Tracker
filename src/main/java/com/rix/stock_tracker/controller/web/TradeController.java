@@ -1,20 +1,20 @@
 package com.rix.stock_tracker.controller.web;
 import com.rix.stock_tracker.Service.CustomUserDetailsService;
 import com.rix.stock_tracker.Service.TradeService;
+import com.rix.stock_tracker.dto.TradeSummary;
 import com.rix.stock_tracker.entity.Trade;
 import com.rix.stock_tracker.entity.TradeDetails;
 import com.rix.stock_tracker.entity.User;
+import com.rix.stock_tracker.repository.TradeDetailRepository;
 import com.rix.stock_tracker.repository.TradeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -25,11 +25,13 @@ public class TradeController {
     private final TradeService tradeService;
     private final TradeRepository repository;
     private final CustomUserDetailsService detailsService;
+    private final TradeDetailRepository tradeDetailRepository;
 
-    public TradeController(final TradeService tradeService, final TradeRepository repository, final CustomUserDetailsService detailsService) {
+    public TradeController(final TradeService tradeService, final TradeRepository repository, final CustomUserDetailsService detailsService, TradeDetailRepository tradeDetailRepository) {
         this.tradeService = tradeService;
         this.repository = repository;
         this.detailsService = detailsService;
+        this.tradeDetailRepository = tradeDetailRepository;
     }
 
     @GetMapping("/all-trades")
@@ -73,5 +75,18 @@ public class TradeController {
 
         model.addAttribute(TRADE_DETAIL_KEY, tradeService.readDetailsById(id));
         return "trades/trade-details";
+    }
+
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("id") Long theId, Model model) {
+
+        Trade trade = tradeService.getTradeById(theId);
+        TradeDetails details = tradeDetailRepository.getById(theId);
+
+        model.addAttribute("trade", trade);
+        model.addAttribute("trade_details", details);
+
+        // send over to our form
+        return "trades/add-trade";
     }
 }
